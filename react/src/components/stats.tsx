@@ -6,7 +6,7 @@ interface StatsProps {
 
 export const Stats = ({stats}: StatsProps) => {
   return (
-    <div className="stats">
+    <div className="stats" role="status">
       <strong>Total:</strong>
       {` ${stats.total} `}
       <strong>| Completed:</strong>

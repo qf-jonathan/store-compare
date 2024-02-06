@@ -33,11 +33,19 @@ export const Task = ({task}: TaskProps) => {
         </span>
       )}
       {!editMode && (
-        <button onClick={() => setEditMode(true)} className="success">
+        <button
+          onClick={() => setEditMode(true)}
+          className="success"
+          aria-label="edit"
+        >
           <EditIcon />
         </button>
       )}
-      <button onClick={() => removeTask(task.uuid)} className="alert">
+      <button
+        onClick={() => removeTask(task.uuid)}
+        className="alert"
+        aria-label="remove"
+      >
         <TrashIcon />
       </button>
     </li>

@@ -27,10 +27,18 @@ export const FieldEdit = ({value, onSave, onCancel}: FieldEditProps) => {
         onKeyDown={handleKeyDown}
         autoFocus={true}
       />
-      <button onClick={() => onSave(newValue)} className="success">
+      <button
+        onClick={() => onSave(newValue)}
+        className="success"
+        aria-label="save"
+      >
         <CheckIcon />
       </button>
-      <button onClick={() => onCancel()} className="alert">
+      <button
+        onClick={() => onCancel()}
+        className="alert"
+        aria-label="cancel"
+      >
         <CloseIcon />
       </button>
     </>

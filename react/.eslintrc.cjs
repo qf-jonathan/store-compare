@@ -16,6 +16,6 @@ module.exports = {
     ],
     'indent': ['error', 2],
     'semi': [2, 'always'],
-    'max-len': ['error', { 'ignoreStrings': true }],
+    'max-len': ['error', { 'ignoreComments': true}],
   },
 }
