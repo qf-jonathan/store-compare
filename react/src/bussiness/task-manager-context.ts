@@ -1,4 +1,6 @@
-import { createContext, useContext, type Dispatch, type SetStateAction } from "react";
+import {
+  createContext, useContext, type Dispatch, type SetStateAction
+} from "react";
 import { StatsType, TaskType } from "./types";
 
 interface TaskManagerContextType {
@@ -17,7 +19,9 @@ export const TaskManagerContext =
 export const useTaskManager = () => {
   const context = useContext(TaskManagerContext);
   if (context === null) {
-    throw new Error('useTaskManagerContext must be within a TaskManagerProvider');
+    throw new Error(
+      'useTaskManagerContext must be within a TaskManagerProvider'
+    );
   }
   return context;
 };
