@@ -22,6 +22,7 @@ const _TaskList = () => {
       <form onSubmit={onSubmit}>
         <input
           value={taskDescription}
+          placeholder="Task description"
           onChange={(event) => setTaskDescription(event.target.value)}
         />
         <button type="submit" className="success">Add Task</button>

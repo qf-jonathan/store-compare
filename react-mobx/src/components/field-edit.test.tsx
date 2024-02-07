@@ -14,7 +14,6 @@ describe('<FieldEdit />', () => {
   });
 
   it('component keyboard interactions', async () => {
-    const user = userEvent.setup();
     const onSaveMock = vi.fn();
     const onCancelMock = vi.fn();
     render(
@@ -25,7 +24,7 @@ describe('<FieldEdit />', () => {
       />
     );
 
-    await user.keyboard('hello world{Enter}{Escape}');
+    await userEvent.keyboard('hello world{enter}{escape}');
 
     expect(onSaveMock).toHaveBeenCalledWith('hello world');
     expect(onCancelMock).toHaveBeenCalled();
