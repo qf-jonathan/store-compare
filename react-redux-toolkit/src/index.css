@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+  margin: auto;
+  max-width: 900px;
+}
+
+.task-list {
+  display: block;
+
+  input {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    padding: 10px;
+    flex: 1 1;
+    font-size: 16px;
+  }
+
+  form {
+    display: flex;
+    background-color: rgb(33, 106, 174);
+    padding: 30px 40px;
+    color: white;
+    text-align: center;
+
+    button {
+      padding: 0 24px;
+    }
+  }
+
+  button {
+    border-radius: 0;
+    border: none;
+
+    &.alert:hover {
+      background-color: #f44336;
+      color: #f9f9f9;
+    }
+
+    &.success:hover {
+      background: rgb(2, 147, 2);
+      color: #f9f9f9;
+    }
+  }
+
+  .stats {
+    text-align: center;
+    padding-bottom: 24px;
+    background-color: rgb(33, 106, 174);
+    color: #f9f9f9;
+    font-size: 20px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    button {
+      width: 48px;
+      background: transparent;
+      transition: all 0.2s;
+    }
+
+    input {
+      background: transparent;
+      outline: none;
+      font-weight: bold;
+    }
+
+    li {
+      cursor: pointer;
+      position: relative;
+      background: #f1f1f1;
+      font-size: 18px;
+      display: flex;
+      padding-left: 28px;
+      min-height: 48px;
+      transition: all 0.2s;
+
+      span {
+        flex: 1 1;
+        padding: 12px 8px;
+      }
+  
+      &:nth-child(odd) {
+        background: #f9f9f9;
+      }
+  
+      &:hover {
+        background: #ddd;
+      }
+
+      &.done {
+        background: #bbb;
+        color: #fff;
+
+        span {
+          text-decoration: line-through;
+        }
+
+        &::before {
+          content: '\2713';
+          position: absolute;
+          top: 10px;
+          left: 16px;
+        }
+      }
+    }
+  }
+}
