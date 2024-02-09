@@ -7,31 +7,27 @@ class TaskListStore {
 
   constructor() {
     makeAutoObservable(this);
-    this.addTask = this.addTask.bind(this);
-    this.removeTask = this.removeTask.bind(this);
-    this.toggleTaskDone = this.toggleTaskDone.bind(this);
-    this.updateTask = this.updateTask.bind(this);
   }
 
-  addTask(description: string) {
+  addTask = (description: string) => {
     this.taskList.push({ uuid: uuidv4(), description, isDone: false });
-  }
+  };
 
-  removeTask(uuid: string) {
+  removeTask = (uuid: string) => {
     this.taskList = this.taskList.filter(task => task.uuid !== uuid);
-  }
+  };
 
-  toggleTaskDone(uuid: string) {
+  toggleTaskDone = (uuid: string) => {
     this.taskList = this.taskList.map(task => 
       task.uuid === uuid ? { ...task, isDone: !task.isDone } : task
     );
-  }
+  };
 
-  updateTask(uuid: string, description: string) {
+  updateTask = (uuid: string, description: string) => {
     this.taskList = this.taskList.map(task =>
       task.uuid === uuid ? { ...task, description } : task
     );
-  }
+  };
 
   get stats(): StatsType {
     const total = this.taskList.length;
