@@ -6,7 +6,7 @@ import { Task as TaskItem } from "../bussiness/task-list-store";
 
 type TaskProps = {
   task: TaskItem;
-}
+};
 
 const _Task = ({task}: TaskProps) => {
   const { toggleIsDone, remove, setDescription } = task;

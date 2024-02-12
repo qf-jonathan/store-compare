@@ -13,8 +13,8 @@ export class TaskStore {
     this.tasks.push(new Task(this, description));
   };
 
-  removeTask = (uuid: string) => {
-    this.tasks = this.tasks.filter(task => task.uuid !== uuid);
+  removeTask = (task: Task) => {
+    this.tasks.splice(this.tasks.indexOf(task), 1);
   };
 
   get stats(): StatsType {
@@ -51,7 +51,7 @@ export class Task {
   };
 
   remove = () => {
-    this.taskStore.removeTask(this.uuid);
+    this.taskStore.removeTask(this);
   };
 }
 

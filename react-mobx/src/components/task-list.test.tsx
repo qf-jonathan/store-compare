@@ -1,18 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { TaskList } from './task-list';
 import userEvent from '@testing-library/user-event';
-import { taskStore } from '../bussiness/task-list-store';
-import { runInAction } from 'mobx';
+import { TaskStore } from '../bussiness/task-list-store';
 
 describe('<TaskList />', () => {
   beforeEach(() => {
-    runInAction(() => {
-      taskStore.tasks = [];
-    });
+    const taskStore = new TaskStore();
     taskStore.addTask('test description one');
     taskStore.addTask('test description two');
     taskStore.tasks[1].toggleIsDone();
-    render(<TaskList />);
+    render(<TaskList taskStore={taskStore}/>);
   });
 
   it('render component', async () => {
