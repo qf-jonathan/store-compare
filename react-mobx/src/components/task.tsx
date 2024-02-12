@@ -1,20 +1,19 @@
 import { useState } from "react";
-import { TaskType } from "../bussiness/types";
 import { FieldEdit } from "./field-edit";
 import { EditIcon, TrashIcon } from "./icons";
 import { observer } from "mobx-react-lite";
-import { taskListStore } from "../bussiness/task-list-store";
+import { Task as TaskItem } from "../bussiness/task-list-store";
 
 type TaskProps = {
-  task: TaskType;
+  task: TaskItem;
 }
 
 const _Task = ({task}: TaskProps) => {
-  const { toggleTaskDone, removeTask, updateTask } = taskListStore;
+  const { toggleIsDone, remove, setDescription } = task;
   const [ editMode, setEditMode ] = useState(false);
 
   const handleUpdateTask = (description: string) => {
-    updateTask(task.uuid, description);
+    setDescription(description);
     setEditMode(false);
   };
 
@@ -28,7 +27,7 @@ const _Task = ({task}: TaskProps) => {
         />
       ): (
         <span
-          onClick={() => toggleTaskDone(task.uuid)}
+          onClick={() => toggleIsDone()}
         >
           {task.description}
         </span>
@@ -43,7 +42,7 @@ const _Task = ({task}: TaskProps) => {
         </button>
       )}
       <button
-        onClick={() => removeTask(task.uuid)}
+        onClick={() => remove()}
         className="alert"
         aria-label="remove"
       >

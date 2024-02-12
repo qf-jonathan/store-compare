@@ -1,40 +1,58 @@
 import { makeAutoObservable } from 'mobx';
 import { v4 as uuidv4 } from 'uuid';
-import { StatsType, TaskType } from './types';
+import { StatsType } from './types';
 
-class TaskListStore {
-  taskList: TaskType[] = [];
+export class TaskStore {
+  tasks: Task[] = [];
 
   constructor() {
     makeAutoObservable(this);
   }
 
   addTask = (description: string) => {
-    this.taskList.push({ uuid: uuidv4(), description, isDone: false });
+    this.tasks.push(new Task(this, description));
   };
 
   removeTask = (uuid: string) => {
-    this.taskList = this.taskList.filter(task => task.uuid !== uuid);
-  };
-
-  toggleTaskDone = (uuid: string) => {
-    this.taskList = this.taskList.map(task => 
-      task.uuid === uuid ? { ...task, isDone: !task.isDone } : task
-    );
-  };
-
-  updateTask = (uuid: string, description: string) => {
-    this.taskList = this.taskList.map(task =>
-      task.uuid === uuid ? { ...task, description } : task
-    );
+    this.tasks = this.tasks.filter(task => task.uuid !== uuid);
   };
 
   get stats(): StatsType {
-    const total = this.taskList.length;
-    const completed = this.taskList.filter(task => task.isDone).length;
+    const total = this.tasks.length;
+    const completed = this.tasks.filter(task => task.isDone).length;
     const remaining = total - completed;
     return { total, completed, remaining };
   }
 }
 
-export const taskListStore = new TaskListStore();
+export class Task {
+  uuid: string;
+  description: string;
+  isDone: boolean = false;
+  taskStore: TaskStore;
+
+  constructor(taskStore: TaskStore, description: string) {
+    this.uuid = uuidv4();
+    this.taskStore = taskStore;
+    this.description = description;
+
+    makeAutoObservable(this, {
+      uuid: false,
+      taskStore: false,
+    });
+  }
+
+  setDescription = (description: string) => {
+    this.description = description;
+  };
+
+  toggleIsDone = () => {
+    this.isDone = !this.isDone;
+  };
+
+  remove = () => {
+    this.taskStore.removeTask(this.uuid);
+  };
+}
+
+export const taskStore = new TaskStore();

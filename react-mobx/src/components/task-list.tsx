@@ -2,10 +2,10 @@ import { useState, type FormEvent } from "react";
 import { Task } from "./task";
 import { Stats } from "./stats";
 import { observer } from "mobx-react-lite";
-import { taskListStore } from "../bussiness/task-list-store";
+import { taskStore } from "../bussiness/task-list-store";
 
 const _TaskList = () => {
-  const { taskList, addTask, stats } = taskListStore;
+  const { tasks, addTask, stats } = taskStore;
   const [ taskDescription, setTaskDescription ] = useState('');
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -29,7 +29,7 @@ const _TaskList = () => {
       </form>
       <Stats stats={stats} />
       <ul>
-        {taskList.map((item) => (
+        {tasks.map((item) => (
           <Task key={item.uuid} task={item} />
         ))}
       </ul>
