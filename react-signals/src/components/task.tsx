@@ -1,34 +1,32 @@
 import { useState } from "react";
-import { TaskType } from "../bussiness/types";
 import { FieldEdit } from "./field-edit";
 import { EditIcon, TrashIcon } from "./icons";
-import {
-  toggleTaskDone, updateTask, removeTask
-} from "../bussiness/task-list-store";
+import { Task as TaskItem } from "../bussiness/task-list-store";
 
 type TaskProps = {
-  task: TaskType;
+  task: TaskItem;
 }
 
 export const Task = ({task}: TaskProps) => {
+  const { setDescription, toggleIsDone, remove } = task;
   const [ editMode, setEditMode ] = useState(false);
 
   const handleUpdateTask = (description: string) => {
-    updateTask(task.uuid, description);
+    setDescription(description);
     setEditMode(false);
   };
 
   return (
-    <li className={task.isDone ? 'done': ''}>
+    <li className={task.isDone.value ? 'done': ''}>
       {editMode ? (
         <FieldEdit
-          value={task.description}
+          value={task.description.value}
           onSave={handleUpdateTask}
           onCancel={() => setEditMode(false)}
         />
       ): (
         <span
-          onClick={() => toggleTaskDone(task.uuid)}
+          onClick={() => toggleIsDone()}
         >
           {task.description}
         </span>
@@ -43,7 +41,7 @@ export const Task = ({task}: TaskProps) => {
         </button>
       )}
       <button
-        onClick={() => removeTask(task.uuid)}
+        onClick={() => remove()}
         className="alert"
         aria-label="remove"
       >

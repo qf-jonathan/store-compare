@@ -1,23 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { TaskList } from './task-list';
-import { taskListSignal } from '../bussiness/task-list-store';
+import { TaskStore } from '../bussiness/task-list-store';
 import userEvent from '@testing-library/user-event';
 
 describe('<TaskList />', () => {
   beforeEach(() => {
-    taskListSignal.value = [
-      {
-        uuid: 'cd602628-cc99-4639-9418-5c674bca16c6',
-        description: 'test description one',
-        isDone: true,
-      },
-      {
-        uuid: '46890c50-292d-481f-b460-28cb6abb61e2',
-        description: 'test description two',
-        isDone: false,
-      },
-    ];
-    render(<TaskList />);
+    const taskStore = new TaskStore();
+    taskStore.addTask('test description one');
+    taskStore.addTask('test description two');
+    taskStore.tasks.value[1].toggleIsDone();
+    render(<TaskList taskStore={taskStore} />);
   });
 
   it('render component', async () => {
@@ -27,7 +19,6 @@ describe('<TaskList />', () => {
     expect(screen.getByText('test description two')).toBeVisible();
     expect(screen.getAllByRole('button', { name: 'edit' }).length).toEqual(2);
     expect(screen.getAllByRole('button', { name: 'remove' }).length).toEqual(2);
-    
   });
 
   it('should add task', async () => {

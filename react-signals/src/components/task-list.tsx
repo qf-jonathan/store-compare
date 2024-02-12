@@ -1,9 +1,14 @@
 import { useState, type FormEvent } from "react";
 import { Task } from "./task";
 import { Stats } from "./stats";
-import { taskListSignal, addTask, stats } from "../bussiness/task-list-store";
+import { TaskStore } from "../bussiness/task-list-store";
 
-export const TaskList = () => {
+type TaskListProps = {
+  taskStore: TaskStore;
+};
+
+export const TaskList = ({taskStore}: TaskListProps) => {
+  const { tasks, addTask, stats } = taskStore;
   const [ taskDescription, setTaskDescription ] = useState('');
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -27,7 +32,7 @@ export const TaskList = () => {
       </form>
       <Stats stats={stats.value} />
       <ul>
-        {taskListSignal.value.map((item) => (
+        {tasks.value.map((item) => (
           <Task key={item.uuid} task={item} />
         ))}
       </ul>
